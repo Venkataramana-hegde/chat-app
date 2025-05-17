@@ -4,17 +4,17 @@ import bcrypt from "bcryptjs";
 import cloudinary from "../lib/cloudinary.js";
 
 //Sign up a new user
-export const signup = async () => {
+export const signup = async (req, res) => {
   const { fullName, email, password, bio } = req.body;
 
   try {
     if (!fullName || !email || !password || !bio) {
-      return resizeBy.json({ success: false, message: "Missing Details" });
+      return res.json({ success: false, message: "Missing Details" });
     }
     const user = await User.findOne({ email });
 
     if (user) {
-      return resizeBy.json({
+      return res.json({
         success: false,
         message: "Account already exists",
       });
@@ -32,7 +32,7 @@ export const signup = async () => {
 
     const token = generateToken(newUser._id);
 
-    resizeBy.json({
+    res.json({
       success: true,
       userData: newUser,
       token,
