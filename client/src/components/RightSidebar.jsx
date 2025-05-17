@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import assets, { imagesDummyData } from '../assets/assets'
+import { ChatContext } from '../../context/ChatContext'
+import { AuthContext } from '../../context/AuthContext'
 
-const RIghtSidebar = ({selectedUser}) => {
+const RIghtSidebar = () => {
+
+  const {selectedUser, messages} = useContext(ChatContext)
+  const {logout, onlineUsers} = useContext(AuthContext)
+  const [msgImages, setMsgImages] = useState([])
+
+  //Get all the images from the messages and set them to state
+
+
   return selectedUser && (
     <div className={`bg-[#818582]/10 text-white w-full relative overflow-y-scroll ${selectedUser ? "max-md:hidden" : ""}`}>
 

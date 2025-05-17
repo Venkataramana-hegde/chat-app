@@ -11,7 +11,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [authUser, setAuthUser] = useState(null);
-  const [onlineUsers, setOnineUsers] = useState([]);
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const [socket, setSocket] = useState(null);
 
   //Check if user is authenticated and if so, set the user data and connect the socket
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
     setToken(null);
     setAuthUser(null);
-    setOnineUsers([]);
+    setOnlineUsers([]);
     axios.defaults.headers.common["token"] = null;
     toast.success("Logged out successfully");
     socket.disconnect();
@@ -85,8 +85,8 @@ export const AuthProvider = ({ children }) => {
     newSocket.connect();
     setSocket(newSocket);
 
-    newSocket.on("getOnlineUsers", () => {
-        setOnineUsers(userIds);
+    newSocket.on("getOnlineUsers", (userIds) => {
+        setOnlineUsers(userIds);
     })
   }
 

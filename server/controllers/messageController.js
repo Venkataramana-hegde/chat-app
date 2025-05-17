@@ -4,7 +4,7 @@ import cloudinary from "../lib/cloudinary.js";
 import {io, userSocketMap} from "../server.js"
 
 //Get all users except the logged in user
-export const getUserForSidebar = async () => {
+export const getUserForSidebar = async (req, res) => {
   try {
     const userId = req.user._id;
     const filteredUsers = await User.find({ _id: { $ne: userId } }).select(
@@ -24,7 +24,7 @@ export const getUserForSidebar = async () => {
       }
     });
     await Promise.all(promises);
-    resizeBy.json({ success: true, users: filteredUsers, unseenMessages });
+    res.json({ success: true, users: filteredUsers, unseenMessages });
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, message: error.message });
